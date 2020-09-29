@@ -59,23 +59,28 @@ public class UsingStacksSuitorsLab implements Runnable {
 	
 	
 	public static void printReverse(String target) {
-		//todo: use a stack
+		//create a new stack
 		Stack<Character> reverse = new Stack<Character>();
-		
+		//iterate over input string adn push each char onto stack
 		for (int i = 0; i < target.length(); i++) {
 			reverse.push(target.charAt(i));
 		}
-		
+		//iterate until stack is empty, pop off char from stack and print it
 		while (!reverse.isEmpty()) {
 			System.out.print(reverse.pop());
 		}
+		//print new line so it looks good
 		System.out.println();
 	}
 	
 	public static void recPrintReverse(String target) {
 		//todo
+		//no base case necessary
 		if (target.length() > 0) {
+			//print out last character in string
 			System.out.print(target.charAt(target.length() - 1));
+			
+			//call method on string with last character removed
 			recPrintReverse(target.substring(0, target.length() - 1));
 		}
 		
@@ -83,42 +88,56 @@ public class UsingStacksSuitorsLab implements Runnable {
 	
 	public static boolean isPalindrome(String input) {
 		//todo: use a stack
+		//create new stack
 		Stack<Character> tester = new Stack<Character>();
 		
+		//iterate over input string, push each char on stack
 		for (int i = 0; i < input.length(); i++) {
 			tester.push(input.charAt(i));
 		}
 		
+		//create new String that is reverse of input
 		String reverse = "";
+		
+		//append elements from stack onto reverse
 		while (!tester.isEmpty()) {
 			reverse += tester.pop();
 		}
 		
+		//return whether the reverse is equal to the original; if so, it is a palindrome
 		return reverse.equals(input);
 	}
 
 	public static boolean isPalindromeRec(String sentence)	{
 	  	//todo
+		//base case if the input is either 1 or 0, it is definitely a palindrome
 		if (sentence.length() <= 1) return true;
 		
+		//conditional: if the first character != the last character, it is not a palindrome
 		if (sentence.charAt(0) != sentence.charAt(sentence.length() - 1)) return false;
 		
+		//recursive case: if the first character == the last character, call the method with the parameter being the first and last letters cut off
 		return isPalindrome(sentence.substring(1, sentence.length() - 1));
 	}
 	
 	public static int findPlaceToStand(int numSuitors) {
 		//todo
+		//create new empty queue
 		Queue<Integer> suitors = new LinkedList<Integer>();
 		
+		//add suitors 1 - num suitors into the queue
 		for (int i = 1; i <= numSuitors; i++) {
 			suitors.add(i);
 		}
 		
+		//repreatedly add the first and second suitors to the back of the queue, and delete the third one
 		while (suitors.size() > 1) {
 			suitors.add(suitors.remove());
 			suitors.add(suitors.remove());
 			suitors.remove();
 		}
+		
+		//return the final remaining suitor, which is where you should stand if you want to marry the princess
 		return suitors.remove();
 	}
 
